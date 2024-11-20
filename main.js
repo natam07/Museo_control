@@ -203,7 +203,7 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
-function animate() {
+function update() {
     requestAnimationFrame(animate);
 
     if (isPressedMove) {
@@ -227,7 +227,7 @@ function animate() {
 }
 
 // Llamar a la función de animación
-animate();
+update();
 
 function animate() {
     renderer.setAnimationLoop(() => {
