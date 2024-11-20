@@ -180,42 +180,55 @@ const player = new THREE.Group();
 player.add(camera);
 scene.add(player);
 
-let isPressed = false;
+let isPressedMove = false; // Estado para movimiento
+let isPressedClick = false; // Estado para clic
 
-// Detectar cuando se presiona la tecla "A"
+// Detectar cuando se presionan teclas específicas
 document.addEventListener('keydown', (event) => {
     if (event.key === 'b' || event.key === 'B') {
-        isPressed = true;
+        isPressedMove = true; // Mover el objeto
+    }
+    if (event.key === 'a' || event.key === 'A') {
+        isPressedClick = true; // Clic
     }
 });
 
-// Detectar cuando se suelta la tecla "A"
+// Detectar cuando se sueltan las teclas específicas
 document.addEventListener('keyup', (event) => {
     if (event.key === 'b' || event.key === 'B') {
-        isPressed = false;
+        isPressedMove = false; // Dejar de mover el objeto
+    }
+    if (event.key === 'a' || event.key === 'A') {
+        isPressedClick = false; // Dejar de hacer clic
     }
 });
 
-function update() {
+function animate() {
     requestAnimationFrame(animate);
 
-    if (isPressed) {
-        // Calcular la dirección hacia la que apunta la cámara
+    if (isPressedMove) {
+        // Crear un vector para obtener la dirección de la cámara
         const direction = new THREE.Vector3();
         camera.getWorldDirection(direction);
 
-        // Normalizar y ajustar velocidad del movimiento
-        direction.normalize();
+        // Mover el objeto en la dirección de la cámara
         const speed = 0.1; // Velocidad de movimiento
+        object.position.x += direction.x * speed;
+        object.position.y += direction.y * speed;
+        object.position.z += direction.z * speed;
+    }
 
-        // Aplicar movimiento en la dirección de la cámara
-        object.position.addScaledVector(direction, speed);
+    // Lógica adicional para el clic si lo necesitas
+    if (isPressedClick) {
+        console.log('Se está haciendo clic con la tecla A');
     }
 
     renderer.render(scene, camera);
 }
 
-update();
+// Llamar a la función de animación
+animate();
+
 function animate() {
     renderer.setAnimationLoop(() => {
         renderer.render(scene, camera);
