@@ -181,28 +181,38 @@ player.add(camera);
 scene.add(player);
 
 let isPressed = false;
-let speed = 0.05; 
 
-controller.addEventListener('mousedown', () => {
-    isPressed = true;
-    console.log('Mouse presionado');
+// Detectar cuando se presiona la tecla "A"
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'a' || event.key === 'A') {
+        isPressed = true;
+    }
 });
 
-controller.addEventListener('mouseup', () => {
-    isPressed = false;
-    console.log('Mouse liberado');
+// Detectar cuando se suelta la tecla "A"
+document.addEventListener('keyup', (event) => {
+    if (event.key === 'a' || event.key === 'A') {
+        isPressed = false;
+    }
 });
-
-
 
 function update() {
+    requestAnimationFrame(animate);
+
     if (isPressed) {
+        // Calcular la dirección hacia la que apunta la cámara
         const direction = new THREE.Vector3();
         camera.getWorldDirection(direction);
-        const movement = direction.multiplyScalar(speed);
-        player.position.add(movement);
+
+        // Normalizar y ajustar velocidad del movimiento
+        direction.normalize();
+        const speed = 0.1; // Velocidad de movimiento
+
+        // Aplicar movimiento en la dirección de la cámara
+        object.position.addScaledVector(direction, speed);
     }
-    requestAnimationFrame(update);
+
+    renderer.render(scene, camera);
 }
 
 update();
