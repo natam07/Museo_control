@@ -184,14 +184,14 @@ let isPressed = false;
 
 // Detectar cuando se presiona la tecla "A"
 document.addEventListener('keydown', (event) => {
-    if (event.key === 'a' || event.key === 'A') {
+    if (event.key === 'b' || event.key === 'B') {
         isPressed = true;
     }
 });
 
 // Detectar cuando se suelta la tecla "A"
 document.addEventListener('keyup', (event) => {
-    if (event.key === 'a' || event.key === 'A') {
+    if (event.key === 'b' || event.key === 'B') {
         isPressed = false;
     }
 });
