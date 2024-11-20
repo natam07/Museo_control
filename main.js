@@ -183,15 +183,16 @@ scene.add(player);
 let isPressed = false;
 let speed = 0.05; 
 
-document.addEventListener('mousedown', () => {
+controller.addEventListener('mousedown', () => {
     isPressed = true;
     console.log('Mouse presionado');
 });
 
-document.addEventListener('mouseup', () => {
+controller.addEventListener('mouseup', () => {
     isPressed = false;
     console.log('Mouse liberado');
 });
+
 
 
 function update() {
